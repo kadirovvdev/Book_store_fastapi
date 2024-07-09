@@ -1,5 +1,7 @@
 from sqlalchemy import Column, String, BigInteger, ForeignKey, Table
 from sqlalchemy.orm import relationship, declarative_base
+from sqlalchemy import Column, Integer, String, Boolean
+from database import Base
 
 Base = declarative_base()
 
@@ -9,6 +11,7 @@ book_author = Table(
     Column('author_id', BigInteger, ForeignKey('author.id'), primary_key=True),
     Column('book_id', BigInteger, ForeignKey('books.id'), primary_key=True)
 )
+
 
 
 class Author(Base):
@@ -56,3 +59,16 @@ class Review(Base):
     book_id = Column(BigInteger, ForeignKey('books.id'))
 
     book = relationship('Books', back_populates='reviews')
+
+
+
+
+class User(Base):
+    __tablename__ = "users"
+
+    id = Column(Integer, primary_key=True, index=True)
+    username = Column(String, unique=True, index=True)
+    email = Column(String, unique=True, index=True)
+    hashed_password = Column(String)
+    is_active = Column(Boolean, default=True)
+
