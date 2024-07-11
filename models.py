@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, BigInteger, ForeignKey, Table
+from sqlalchemy import Column, String, BigInteger, ForeignKey, Table, Float
 from sqlalchemy.orm import relationship, declarative_base
 from sqlalchemy import Column, Integer, String, Boolean
 from database import Base
@@ -72,3 +72,11 @@ class User(Base):
     hashed_password = Column(String)
     is_active = Column(Boolean, default=True)
 
+class Order(Base):
+    __tablename__ = "orders"
+    id = Column(Integer, primary_key=True, index=True)
+    product_id = Column(Integer, ForeignKey('books.id'))
+    quantity = Column(Integer)
+    total_price = Column(Float)
+
+    product = relationship("Books",)

@@ -189,3 +189,6 @@ def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db:
 @app.get("/users/me/", response_model=UserOut)
 async def read_users_me(current_user: User = Depends(get_current_active_user)):
     return current_user
+
+
+
